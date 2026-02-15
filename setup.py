@@ -12,7 +12,11 @@ if py_version < (3, 5):
 here = os.path.abspath(os.path.dirname(__file__))
 
 with open('requirements.txt') as f:
-    dependencies = f.read().splitlines()
+    dependencies = [
+        line.split('#')[0].strip()
+        for line in f.read().splitlines()
+        if line.split('#')[0].strip()
+    ]
 
 long_description = """
 Axeman uses co-routines and multiprocessing to download and process certificates from a Certificate Transparency
